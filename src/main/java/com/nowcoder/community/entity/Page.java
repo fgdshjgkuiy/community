@@ -1,7 +1,7 @@
 package com.nowcoder.community.entity;
 
 //分页
-public class Page {
+public class  Page {
     private int current=1;
     private int limit=10;
     private int rows;
@@ -46,7 +46,7 @@ public class Page {
     }
 
     //获取当前页的起始行
-    public int getOfferset(){
+    public int getOffset(){
         return (current-1)*limit;
     }
     public int getTotal(){
