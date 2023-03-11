@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +43,7 @@ public class FollowController implements CommunityConstant {
     @ResponseBody
     public String unfollow(int entityType,int entityId){
         User user = hostHolder.getUser();
-        followService.unfollow(     user.getId(),entityType,entityId);
+        followService.unfollow(user.getId(),entityType,entityId);
 
         Event event = new Event()
                 .setTopic(TOPIC_FOLLOW)

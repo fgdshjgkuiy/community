@@ -12,7 +12,6 @@ function publish() {
 	// $(document).ajaxSend(function (e,xhr,options) {
 	// 	xhr.setRequestHeader(header,token);
 	// });
-
 	// 获取标题和内容
 	var title = $("#recipient-name").val();
 	var content = $("#message-text").val();

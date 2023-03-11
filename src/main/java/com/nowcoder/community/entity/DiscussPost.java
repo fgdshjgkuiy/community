@@ -12,6 +12,15 @@ public class DiscussPost {
     private Date createTime;
     private int commentCount;
     private double score;
+    private int userType;
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
 
     public int getId() {
         return id;
@@ -97,6 +106,8 @@ public class DiscussPost {
                 ", createTime=" + createTime +
                 ", commentCount=" + commentCount +
                 ", score=" + score +
+                ", userType=" + userType +
                 '}';
     }
+
 }

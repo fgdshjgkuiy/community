@@ -117,4 +117,13 @@ public class MapperTest {
         System.out.println(count);
     }
 
+    @Test
+    public void intelligent(){
+        List<DiscussPost> list = discussPostMapper.intelligentSelect(1, 0, 5);
+        for(DiscussPost i:list){
+            System.out.println(i);
+        }
+        System.out.println(discussPostMapper.intelligentSelectRows(1));
+    }
+
 }

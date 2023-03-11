@@ -29,7 +29,7 @@ import java.io.OutputStream;
 @Controller
 @RequestMapping("/user")
 public class UserController implements CommunityConstant {
-    private static final Logger logger= LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Value("${community.path.upload}")
     private String uploadPath;

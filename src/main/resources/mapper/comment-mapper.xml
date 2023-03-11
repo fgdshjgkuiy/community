@@ -22,7 +22,7 @@
         limit #{offset},#{limit}
     </select>
 
-    <select id="selectCountByEneity" resultType="int">
+    <select id="selectCountByEntity" resultType="int">
         select count(id)
         from comment
         where status=0

@@ -27,7 +27,10 @@ public class CommentService implements CommunityConstant {
     }
 
     public int findCommentCount(int entityType,int entityId){
-        return commentMapper.selectCountByEneity(entityType,entityId);
+        System.out.println(entityType);
+        System.out.println(entityId);
+        System.out.println(commentMapper.selectCountByEntity(entityType,entityId));
+        return commentMapper.selectCountByEntity(entityType,entityId);
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
@@ -39,7 +42,7 @@ public class CommentService implements CommunityConstant {
         comment.setContent(sensitiveFilter.filter(comment.getContent()));
         int rows = commentMapper.insertComment(comment);
         if(comment.getEntityType()==ENTITY_TYPE_POST){
-            int count = commentMapper.selectCountByEneity(comment.getEntityType(), comment.getEntityId());
+            int count = commentMapper.selectCountByEntity(comment.getEntityType(), comment.getEntityId());
             discussPostService.updateCommentCount(comment.getEntityId(),count);
         }
         return rows;

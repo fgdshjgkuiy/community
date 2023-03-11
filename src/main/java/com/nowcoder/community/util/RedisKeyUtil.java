@@ -1,6 +1,5 @@
 package com.nowcoder.community.util;
 
-import com.nowcoder.community.entity.User;
 
 public class RedisKeyUtil {
     private static final String SPLIT=":";
@@ -11,6 +10,7 @@ public class RedisKeyUtil {
     private static final String PREFIX_KAPTCHA="kaptcha";
     private static final String PREFIX_TICKET="ticket";
     private static final String PREFIX_USER="user";
+    private static final String PREFIX_USER_Recommend="Recommend";
 
     public static String  getEntityLikeKey(int entityType,int entityId){
         return PREFIX_ENTITY_LIKE+SPLIT+entityType+SPLIT+entityId;
@@ -37,5 +37,10 @@ public class RedisKeyUtil {
     }
     public static String getUserKey(int userId){
         return PREFIX_USER+SPLIT+userId;
+    }
+
+    //推荐
+    public static String getRecommendKey(int userId,int userType){
+        return PREFIX_USER_Recommend+SPLIT+userId+SPLIT+userType;
     }
 }

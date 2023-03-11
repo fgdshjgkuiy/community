@@ -37,13 +37,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
                         "/letter/**",
                         "/notice/**",
                         "/like",
+                        "/discuss/detail/**",
                         "/follow",
-                        "/unfollow"
+                        "/unfollow",
+                        "/intelligent"
                 )
                 .hasAnyAuthority(
                         AUTHORITY_USER,
                         AUTHORITY_ADMIN,
                         AUTHORITY_MODERATOR
+                )
+                .antMatchers(
+                        "/discuss/top",
+                        "/discuss/wonderful",
+                        "/discuss/delete"
+                        )
+                .hasAnyAuthority(
+                        AUTHORITY_ADMIN
                 )
                 .anyRequest().permitAll()
                 .and().csrf().disable();

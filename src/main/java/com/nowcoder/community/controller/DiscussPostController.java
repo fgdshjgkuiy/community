@@ -9,7 +9,9 @@ import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
 import com.nowcoder.community.util.HostHolder;
+import com.nowcoder.community.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +37,8 @@ public class DiscussPostController implements CommunityConstant {
     private LikeService likeService;
     @Autowired
     private EventProduce eventProduce;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @RequestMapping(path="/add",method= RequestMethod.POST)
     @ResponseBody
@@ -54,8 +58,20 @@ public class DiscussPostController implements CommunityConstant {
     }
     @RequestMapping(path="/detail/{discussPostId}",method = RequestMethod.GET)
     public String getDiscussPost(@PathVariable("discussPostId") int discussPostId, Model model, Page page){
+
+
+
         DiscussPost post = discussPostService.findDiscussPostById(discussPostId);
         model.addAttribute("post",post);
+
+
+
+        //+++++111111111
+        int type = post.getUserType();
+        int userId=hostHolder.getUser().getId();
+        String recommendKey = RedisKeyUtil.getRecommendKey(userId,type);
+        redisTemplate.opsForValue().increment(recommendKey);
+
 
         User user = userService.findUserById(post.getUserId());
         model.addAttribute("user",user);
@@ -110,7 +126,9 @@ public class DiscussPostController implements CommunityConstant {
                     }
                 }
                 commentVo.put("replys",replyVoList);
+                System.out.println(1);
                 int replyCount = commentService.findCommentCount(ENTITY_TYPE_COMMENT,comment.getId());
+                System.out.println(replyCount);
                 commentVo.put("replyCount",replyCount);
                 commentVoList.add(commentVo);
             }
@@ -136,6 +154,13 @@ public class DiscussPostController implements CommunityConstant {
     public String setDelete(int id){
         discussPostService.updateStatus(id,2);
          return CommunityUtil.getJSONString(0);
+    }
+    @RequestMapping(path="/updateUserType",method = RequestMethod.POST)
+    @ResponseBody
+    public String setDelete(int id,int userType){
+        discussPostService.updateUserType(id,userType);
+        System.out.println("修改成功");
+        return CommunityUtil.getJSONString(0);
     }
 
 }

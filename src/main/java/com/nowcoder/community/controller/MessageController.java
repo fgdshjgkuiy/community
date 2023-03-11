@@ -57,7 +57,6 @@ public class MessageController implements CommunityConstant {
         model.addAttribute("letterUnreadCount",letterUnreadCount);
         int noticeUnreadCount = messageService.findNoticeUnreadCount(user.getId(),null);
         model.addAttribute("noticeUnreadCount",noticeUnreadCount);
-
         return "/site/letter";
     }
     @RequestMapping(path = "/letter/detail/{conversationId}",method = RequestMethod.GET)
@@ -239,6 +238,6 @@ public class MessageController implements CommunityConstant {
         if(!ids.isEmpty()){
             messageService.readMessage(ids);
         }
-        return "/site/notice-detail";
+        return "/site/notice-detail"; 
      }
 }
